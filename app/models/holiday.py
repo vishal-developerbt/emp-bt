@@ -1,0 +1,10 @@
+from sqlalchemy import Column, Integer, String, Date
+from app.db.database import Base
+
+class Holiday(Base):
+    __tablename__ = "holidays"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    date = Column(Date)
+    description = Column(String)
