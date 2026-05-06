@@ -4,7 +4,7 @@ from datetime import date, timedelta
 from app.db.database import SessionLocal
 from app.models.user import User
 from app.models.timesheet import Timesheet
-from app.models.leave import Leave
+from app.models.emp_leave import EmpLeave
 from app.core.deps import get_current_user
 
 router = APIRouter()
@@ -33,8 +33,8 @@ def get_dashboard(
     total_hours_sum = sum([h[0] for h in total_hours]) if total_hours else 0
 
     # 🌴 Total Leaves
-    total_leaves = db.query(Leave).filter(
-        Leave.user_id == current_user.id
+    total_leaves = db.query(EmpLeave).filter(
+        EmpLeave.user_id == current_user.id
     ).count()
 
     # Upcoming Birthdays (next 7 days)
@@ -71,10 +71,10 @@ def get_dashboard(
                 })
 
     # 🌴 Today Employees on Leave
-    today_leaves = db.query(Leave).filter(
-        Leave.start_date <= today,
-        Leave.end_date >= today,
-        Leave.status == "Approved"
+    today_leaves = db.query(EmpLeave).filter(
+        EmpLeave.start_date <= today,
+        EmpLeave.end_date >= today,
+        EmpLeave.status == "Approved"
     ).all()
 
     today_leave_users = []

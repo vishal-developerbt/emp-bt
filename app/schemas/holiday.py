@@ -1,18 +1,27 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
+from typing import Optional
 from datetime import date
 
 
 class HolidayCreate(BaseModel):
-    name: str
+    holiday_name: str
     date: date
-    description: str
+    type: str
+    status: Optional[bool] = True
+
+
+class HolidayUpdate(BaseModel):
+    holiday_name: Optional[str]
+    date: Optional[date]
+    type: Optional[str]
+    status: Optional[bool]
 
 
 class HolidayResponse(BaseModel):
     id: int
-    name: str
+    holiday_name: str
     date: date
-    description: str
+    type: str
+    status: bool
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

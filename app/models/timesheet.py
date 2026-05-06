@@ -1,20 +1,27 @@
-from sqlalchemy import Column, Integer, String, Date, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, BigInteger, Integer, String, Date, Text, TIMESTAMP
+from sqlalchemy.sql import func
 from app.db.database import Base
 
+
 class Timesheet(Base):
-    __tablename__ = "timesheets"
+    __tablename__ = "timesheet"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(BigInteger, primary_key=True, index=True, autoincrement=True)
 
-    user_id = Column(Integer, ForeignKey("users.id"))
-    project_id = Column(Integer, ForeignKey("projects.id"))
+    project_id = Column(Integer, nullable=False)
+    user_id = Column(Integer, nullable=False)
+    manager_id = Column(Integer, nullable=True)
 
-    date = Column(Date)
-    hours = Column(Integer)
-    description = Column(String)
+    hours = Column(String(255), nullable=False)
+    minutes = Column(String(255), nullable=False)
 
-    status = Column(String, default="Pending")
+    select_date = Column(Date, nullable=False)
+    description = Column(Text, nullable=True)
 
-    user = relationship("User")
-    project = relationship("Project")
+    status = Column(String(50), default="Pending")  
+    # Pending, Approved, Reject, ReferBack
+
+    manager_comment = Column(Text, nullable=True)
+
+    created_at = Column(TIMESTAMP, server_default=func.now())
+    updated_at = Column(TIMESTAMP, onupdate=func.now())
