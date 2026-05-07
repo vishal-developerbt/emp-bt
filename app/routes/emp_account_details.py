@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.database import SessionLocal
 from app.core.utils import validate_ifsc, validate_account
-from app.models.emp_account_details import EmpAccountDetails
-from app.schemas.emp_account_details import (
+from app.models.employee_model import EmpAccountDetails
+from app.schemas.employee_schema import (
     AccountDetailsCreate,
     AccountDetailsUpdate,
     AccountDetailsResponse

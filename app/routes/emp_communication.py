@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.database import SessionLocal
-from app.models.emp_communication import EmpCommunication
-from app.schemas.emp_communication import (
+from app.models.employee_model import EmpCommunication
+from app.schemas.employee_schema import (
     CommunicationCreate,
     CommunicationUpdate,
     CommunicationResponse

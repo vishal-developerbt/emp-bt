@@ -1,14 +1,14 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.database import SessionLocal
-from app.models.emp_technology import EmpTechnology
-from app.schemas.emp_technology import (
+from app.models.employee_model import EmpTechnology
+from app.schemas.employee_schema import (
     EmpTechnologyCreate,
     EmpTechnologyUpdate,
     EmpTechnologyResponse
 )
 
-router = APIRouter(prefix="/emp-technology", tags=["Emp Technology"])
+router = APIRouter()
 
 
 def get_db():

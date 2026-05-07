@@ -1,5 +1,5 @@
 from datetime import datetime
-from app.models.user import User
+from app.models.employee_model import User
 from dateutil.relativedelta import relativedelta
 import random
 import re

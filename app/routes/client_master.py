@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
 from app.db.database import SessionLocal
-from app.models.client_master import ClientMaster
-from app.schemas.client_master import (
+from app.models.project_model import ClientMaster
+from app.schemas.project_schema import (
     ClientCreate,
     ClientUpdate,
     ClientResponse
@@ -19,27 +19,6 @@ def get_db():
     finally:
         db.close()
 
-
-from fastapi import APIRouter, Depends, HTTPException, Query
-from sqlalchemy.orm import Session
-
-from app.db.database import SessionLocal
-from app.models.client_master import ClientMaster
-from app.schemas.client_master import (
-    ClientCreate,
-    ClientUpdate,
-    ClientResponse
-)
-
-router = APIRouter(prefix="/clients", tags=["Client Master"])
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 @router.put("/{id}", response_model=ClientResponse)

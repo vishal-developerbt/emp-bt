@@ -6,7 +6,7 @@ from app.routes.auth import router as auth_router
 from app.routes.profile import router as profile_router
 from app.routes.timesheet import router as timesheet_router
 from app.routes.dashboard import router as dashboard_router
-from app.routes.salary import router as salary_router
+#from app.routes.salary import router as salary_router
 from app.routes.attendance import router as attendance_router
 from app.routes.claim import router as claim_router
 from app.routes.holiday import router as holiday_router
@@ -49,6 +49,8 @@ from app.routes.project_monthly_earning import router as project_monthly_earning
 from app.routes.client_master import router as client_master_router
 from app.routes.sub_process import router as sub_process_router
 from app.routes import process
+from app.routes import emp_shortleave
+from app.routes import emp_technology
 
 
 
@@ -82,7 +84,6 @@ app.include_router(auth_router, prefix="/auth", tags=["Auth"])
 app.include_router(profile_router, prefix="/profiles", tags=["Profiles"])
 app.include_router(timesheet_router, prefix="/timesheet", tags=["Timesheet"])
 app.include_router(dashboard_router, prefix="/dashboard", tags=["Dashboard"])
-app.include_router(salary_router, prefix="/salary", tags=["Salary"])
 app.include_router(attendance_router, prefix="/attendance", tags=["Attendance"])
 app.include_router(claim_router, prefix="/claims", tags=["Claims"])
 app.include_router(holiday_router, prefix="/holidays", tags=["Holidays"])
@@ -125,8 +126,8 @@ app.include_router(client_master_router, prefix="/clients", tags=["Client Master
 app.include_router(emp_registration.router, prefix="/emp-registration", tags=["Employee Registration"])
 app.include_router(process.router, prefix="/process", tags=["Process"])
 app.include_router(sub_process_router, prefix="/sub-processes", tags=["Sub Processes"])
-
-
+app.include_router(emp_shortleave.router, prefix="/short-leave", tags=["Short Leave"])
+app.include_router(emp_technology.router, prefix="/emp-technology", tags=["Employee Technology"])
 
 
 

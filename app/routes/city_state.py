@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
 from app.db.database import SessionLocal
-from app.models.city_state import CityState
-from app.schemas.city_state import CityStateCreate, CityStateResponse
+from app.models.cms_model import CityState
+from app.schemas.cms_schema import CityStateCreate, CityStateResponse
 
 router = APIRouter(prefix="/city-states", tags=["City States"])
 

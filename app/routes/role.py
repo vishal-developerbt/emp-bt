@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.database import SessionLocal
-from app.models.role import Role
-from app.schemas.role import RoleCreate, RoleUpdate, RoleResponse
+from app.models.employee_model import Role
+from app.schemas.employee_schema import RoleCreate, RoleUpdate, RoleResponse
 from typing import List
 
 router = APIRouter()

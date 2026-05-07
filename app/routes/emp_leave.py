@@ -3,8 +3,8 @@ from sqlalchemy.orm import Session
 from datetime import date
 
 from app.db.database import SessionLocal
-from app.models.emp_leave import EmpLeave
-from app.schemas.emp_leave import LeaveCreate, LeaveUpdate, LeaveResponse
+from app.models.employee_model import EmpLeave
+from app.schemas.employee_schema import LeaveCreate, LeaveUpdate, LeaveResponse
 
 router = APIRouter()
 

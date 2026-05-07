@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.database import SessionLocal
-from app.models.technology import Technology
-from app.schemas.technology import (
+from app.models.project_model import Technology
+from app.schemas.project_schema import (
     TechnologyCreate,
     TechnologyUpdate,
     TechnologyResponse

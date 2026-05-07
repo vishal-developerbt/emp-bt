@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.database import SessionLocal
-from app.models.skills import Skill
-from app.schemas.skills import SkillCreate, SkillUpdate, SkillResponse
+from app.models.project_model import Skill
+from app.schemas.project_schema import SkillCreate, SkillUpdate, SkillResponse
 
 router = APIRouter()
 

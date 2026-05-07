@@ -4,11 +4,11 @@ from typing import List
 import os, uuid
 
 from app.db.database import SessionLocal
-from app.models.cms_image import CMSImage
-from app.models.cms import CMS
-from app.schemas.cms_image import CMSImageResponse
+from app.models.cms_model import CMSImage
+from app.models.cms_model import CMS
+from app.schemas.cms_schema import CMSImageResponse
 from app.core.deps import get_current_user
-from app.models.user import User
+from app.models.employee_model import User
 
 router = APIRouter()
 

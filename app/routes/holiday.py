@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.database import SessionLocal
-from app.models.holiday import Holiday
-from app.schemas.holiday import (
+from app.models.attendance_model import Holiday
+from app.schemas.attendance_schema import (
     HolidayCreate,
     HolidayUpdate,
     HolidayResponse

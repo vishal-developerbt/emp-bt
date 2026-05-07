@@ -2,10 +2,10 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.database import SessionLocal
 from app.core.deps import get_current_user
-from app.models.block_timesheet import BlockTimesheet
+from app.models.attendance_model import BlockTimesheet
 
 from datetime import date
-from app.schemas.block_timesheet import (
+from app.schemas.attendance_schema import (
     BlockCreate,
     BlockUpdate,
     BlockResponse
