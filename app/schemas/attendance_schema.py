@@ -17,20 +17,16 @@ class TimesheetCreate(BaseModel):
     project_id: int
     user_id: int
     manager_id: Optional[int] = None
-
     hours: int = Field(ge=0, le=24)
     minutes: int = Field(ge=0, le=59)
-
     select_date: date
     description: Optional[str] = None
 
 
 class TimesheetUpdate(BaseModel):
     project_id: Optional[int] = None
-
     hours: Optional[int] = Field(default=None, ge=0, le=24)
     minutes: Optional[int] = Field(default=None, ge=0, le=59)
-
     select_date: Optional[date] = None
     description: Optional[str] = None
 
@@ -45,16 +41,12 @@ class TimesheetResponse(BaseModel):
     project_id: int
     user_id: int
     manager_id: Optional[int]
-
     hours: int
     minutes: int
-
     select_date: date
     description: Optional[str]
-
     status: StatusEnum
     manager_comment: Optional[str]
-
     model_config = ConfigDict(from_attributes=True)
 
 
@@ -63,7 +55,6 @@ class TimesheetResponse(BaseModel):
 class TimesheetCommentCreate(BaseModel):
     timesheet_id: int
     comment_history: Optional[str] = None
-
     status: StatusEnum = StatusEnum.Pending
 
 
@@ -75,10 +66,8 @@ class TimesheetCommentUpdate(BaseModel):
 class TimesheetCommentResponse(BaseModel):
     id: int
     timesheet_id: int
-
     comment_history: Optional[str]
     status: StatusEnum
-
     model_config = ConfigDict(from_attributes=True)
 
 
@@ -97,11 +86,9 @@ class BlockUpdate(BaseModel):
 class BlockResponse(BaseModel):
     id: int
     timesheet_date: date
-
     is_block: bool
     user_id: int
     approved_by: Optional[int]
-
     model_config = ConfigDict(from_attributes=True)
 
 
@@ -110,28 +97,21 @@ class BlockResponse(BaseModel):
 class HolidayCreate(BaseModel):
     holiday_name: str
     date: date
-
     holiday_type: str
-
     status: Optional[bool] = True
 
 
 class HolidayUpdate(BaseModel):
     holiday_name: Optional[str] = None
     date: Optional[date] = None
-
     holiday_type: Optional[str] = None
-
     status: Optional[bool] = None
 
 
 class HolidayResponse(BaseModel):
     id: int
-
     holiday_name: str
     date: date
-
     holiday_type: str
     status: bool
-
     model_config = ConfigDict(from_attributes=True)

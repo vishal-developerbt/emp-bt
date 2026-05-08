@@ -20,9 +20,6 @@ def get_db():
 
 @router.post("/", response_model=EmpShiftResponse)
 def create_shift(data: EmpShiftCreate, db: Session = Depends(get_db)):
-    if data.status not in ["Enable", "Disable"]:
-        raise HTTPException(400, "Invalid status")
-
     shift = EmpShift(**data.dict())
 
     db.add(shift)
@@ -38,8 +35,6 @@ def update_shift(id: int, data: EmpShiftUpdate, db: Session = Depends(get_db)):
     if not shift:
         raise HTTPException(404, "Shift not found")
 
-    if data.status and data.status not in ["Enable", "Disable"]:
-        raise HTTPException(400, "Invalid status")
 
     for field, value in data.dict(exclude_unset=True).items():
         setattr(shift, field, value)

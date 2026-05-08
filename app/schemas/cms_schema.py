@@ -19,7 +19,6 @@ class CMSResponse(BaseModel):
     title: str
     content: Optional[str] = None
     status: bool
-
     model_config = ConfigDict(from_attributes=True)
 
 
@@ -28,7 +27,6 @@ class CMSImageResponse(BaseModel):
     cms_id: int
     file_name: str
     status: bool
-
     model_config = ConfigDict(from_attributes=True)
 
 
@@ -52,7 +50,6 @@ class EmailTemplateResponse(BaseModel):
     type: str
     content: str
     status: bool
-
     model_config = ConfigDict(from_attributes=True)
 
 
@@ -70,5 +67,4 @@ class CityStateResponse(BaseModel):
     id: int
     state: str
     city: str
-
     model_config = ConfigDict(from_attributes=True)
