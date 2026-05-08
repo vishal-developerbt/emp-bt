@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.database import SessionLocal
-from app.models.skill_department import SkillDepartment
-from app.schemas.skill_department import (
+from app.models.project_model import SkillDepartment
+from app.schemas.project_schema import (
     SkillDepartmentCreate,
     SkillDepartmentUpdate,
     SkillDepartmentResponse

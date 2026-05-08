@@ -1,14 +1,14 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from app.db.database import SessionLocal
-from app.models.claim import Claim
-from app.schemas.claim import (
+from app.models.claim_model import Claim
+from app.schemas.claim_schema import (
     ClaimCreate,
     ClaimUpdate,
     ClaimResponse
 )
 from app.core.deps import get_current_user
-from app.models.user import User
+from app.models.employee_model import User
 
 router = APIRouter()
 

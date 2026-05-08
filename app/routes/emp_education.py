@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.database import SessionLocal
-from app.models.emp_education import EmpEducation
-from app.schemas.emp_education import (
+from app.models.employee_model import EmpEducation
+from app.schemas.employee_schema import (
     EducationCreate,
     EducationUpdate,
     EducationResponse

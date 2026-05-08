@@ -3,8 +3,8 @@ from sqlalchemy.orm import Session
 import uuid
 
 from app.db.database import SessionLocal
-from app.models.profile import Profile
-from app.schemas.profile import (
+from app.models.employee_model import Profile
+from app.schemas.employee_schema import (
     ProfileCreate,
     ProfileUpdate,
     ProfileResponse

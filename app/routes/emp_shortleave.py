@@ -1,14 +1,14 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.database import SessionLocal
-from app.models.emp_shortleave import EmpShortLeave
-from app.schemas.emp_shortleave import (
+from app.models.employee_model import EmpShortLeave
+from app.schemas.employee_schema import (
     ShortLeaveCreate,
     ShortLeaveUpdate,
     ShortLeaveResponse
 )
 
-router = APIRouter(prefix="/short-leave", tags=["Short Leave"])
+router = APIRouter()
 
 
 def get_db():

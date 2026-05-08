@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.database import SessionLocal
-from app.models.emp_registration import EmpRegistration
-from app.schemas.emp_registration import (
+from app.models.employee_model import EmpRegistration
+from app.schemas.employee_schema import (
     EmpRegistrationCreate,
     EmpRegistrationUpdate,
     EmpRegistrationResponse

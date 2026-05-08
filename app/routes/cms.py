@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.database import SessionLocal
-from app.models.cms import CMS
-from app.schemas.cms import CMSCreate, CMSUpdate, CMSResponse
+from app.models.cms_model import CMS
+from app.schemas.cms_schema import CMSCreate, CMSUpdate, CMSResponse
 from app.core.deps import get_current_user
-from app.models.user import User
+from app.models.employee_model import User
 
 router = APIRouter()
 

@@ -1,14 +1,14 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.database import SessionLocal
-from app.models.department import Department
-from app.schemas.department import (
+from app.models.project_model import Department
+from app.schemas.project_schema import (
     DepartmentCreate,
     DepartmentUpdate,
     DepartmentResponse
 )
 from app.core.deps import get_current_user
-from app.models.user import User
+from app.models.employee_model import User
 
 router = APIRouter()
 
@@ -19,30 +19,6 @@ def get_db():
         yield db
     finally:
         db.close()
-
-@router.post("/", response_model=DepartmentResponse)
-def create_department(
-    data: DepartmentCreate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
-):
-    if current_user.role != "admin":
-        raise HTTPException(403, "Not authorized")
-
-    existing = db.query(Department).filter(
-        Department.department_name == data.department_name
-    ).first()
-
-    if existing:
-        raise HTTPException(400, "Department already exists")
-
-    dept = Department(**data.dict())
-
-    db.add(dept)
-    db.commit()
-    db.refresh(dept)
-
-    return dept
 
 @router.post("/", response_model=DepartmentResponse)
 def create_department(

@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.database import SessionLocal
-from app.models.team_lead import TeamLead
-from app.schemas.team_lead import (
+from app.models.project_model import TeamLead
+from app.schemas.project_schema import (
     TeamLeadCreate,
     TeamLeadUpdate,
     TeamLeadResponse

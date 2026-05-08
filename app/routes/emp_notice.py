@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.database import SessionLocal
-from app.models.emp_notice import EmpNotice
-from app.schemas.emp_notice import (
+from app.models.employee_model import EmpNotice
+from app.schemas.employee_schema import (
     NoticeCreate,
     NoticeUpdate,
     NoticeResponse

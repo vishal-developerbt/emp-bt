@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.database import SessionLocal
-from app.models.emp_per_address import EmpPerAddress
-from app.schemas.emp_per_address import (
+from app.models.employee_model import EmpPerAddress
+from app.schemas.employee_schema import (
     PerAddressCreate,
     PerAddressUpdate,
     PerAddressResponse

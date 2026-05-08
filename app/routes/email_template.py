@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.database import SessionLocal
-from app.models.email_template import EmailTemplate
-from app.schemas.email_template import (
+from app.models.cms_model import EmailTemplate
+from app.schemas.cms_schema import (
     EmailTemplateCreate,
     EmailTemplateUpdate,
     EmailTemplateResponse

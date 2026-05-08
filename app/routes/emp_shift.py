@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.database import SessionLocal
-from app.models.emp_shift import EmpShift
-from app.schemas.emp_shift import (
+from app.models.employee_model import EmpShift
+from app.schemas.employee_schema import (
     EmpShiftCreate,
     EmpShiftUpdate,
     EmpShiftResponse

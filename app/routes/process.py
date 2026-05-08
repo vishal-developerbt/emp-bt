@@ -3,14 +3,14 @@ from sqlalchemy.orm import Session
 import uuid
 
 from app.db.database import SessionLocal
-from app.models.process import Process
-from app.schemas.process import (
+from app.models.project_model import Process
+from app.schemas.project_schema import (
     ProcessCreate,
     ProcessUpdate,
     ProcessResponse
 )
 
-router = APIRouter(prefix="/process", tags=["Process"])
+router = APIRouter()
 
 
 def get_db():

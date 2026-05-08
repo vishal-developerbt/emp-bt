@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.database import SessionLocal
-from app.models.timesheet import Timesheet
-from app.schemas.timesheet import (
+from app.models.attendance_model import Timesheet
+from app.schemas.attendance_schema import (
     TimesheetCreate,
     TimesheetUpdate,
     TimesheetResponse,

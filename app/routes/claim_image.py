@@ -4,13 +4,13 @@ from typing import List
 import os
 
 from app.db.database import SessionLocal
-from app.models.claim_image import ClaimImage
-from app.models.claim import Claim
-from app.schemas.claim_image import ClaimImageResponse
+from app.models.claim_model import ClaimImage
+from app.models.claim_model import Claim
+from app.schemas.claim_schema import ClaimImageResponse
 from app.core.deps import get_current_user
-from app.models.user import User
+from app.models.employee_model import User
 
-router = APIRouter(prefix="/claim-images", tags=["Claim Images"])
+router = APIRouter()
 
 
 UPLOAD_DIR = "uploads/claims"

@@ -3,11 +3,11 @@ from sqlalchemy.orm import Session
 import uuid
 
 from app.db.database import SessionLocal
-from app.models.sub_process import SubProcess
-from app.models.process import Process
-from app.models.profile import Profile
+from app.models.project_model import SubProcess
+from app.models.project_model import Process
+from app.models.employee_model import Profile
 
-from app.schemas.sub_process import (
+from app.schemas.project_schema import (
     SubProcessCreate,
     SubProcessUpdate,
     SubProcessResponse

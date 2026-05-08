@@ -3,15 +3,15 @@ from sqlalchemy.orm import Session
 from datetime import date
 
 from app.db.database import SessionLocal
-from app.models.project_monthly_earning import ProjectMonthlyEarning
-from app.models.project import Project
-from app.schemas.project_monthly_earning import (
+from app.models.project_model import ProjectMonthlyEarning
+from app.models.project_model import Project
+from app.schemas.project_schema import (
     EarningCreate,
     EarningUpdate,
     EarningResponse
 )
 from app.core.deps import get_current_user
-from app.models.user import User
+from app.models.employee_model import User
 
 router = APIRouter()
 

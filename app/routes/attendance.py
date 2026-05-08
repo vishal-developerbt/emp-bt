@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from datetime import datetime, date, timezone
 from app.db.database import SessionLocal
 from app.models.attendance import Attendance
-from app.models.user import User
+from app.models.employee_model import User
 from app.core.deps import get_current_user
 
 router = APIRouter()

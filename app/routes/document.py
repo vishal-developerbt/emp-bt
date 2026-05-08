@@ -3,8 +3,8 @@ from sqlalchemy.orm import Session
 import os, uuid
 
 from app.db.database import SessionLocal
-from app.models.document import Document
-from app.schemas.document import DocumentResponse
+from app.models.project_model import Document
+from app.schemas.project_schema import DocumentResponse
 
 router = APIRouter()
 

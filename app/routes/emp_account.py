@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.core.utils import validate_aadhaar, validate_pan
 from app.db.database import SessionLocal
-from app.models.emp_account import EmpAccount
-from app.schemas.emp_account import (
+from app.models.employee_model import EmpAccount
+from app.schemas.employee_schema import (
     AccountCreate,
     AccountUpdate,
     AccountResponse

@@ -3,15 +3,15 @@ from sqlalchemy.orm import Session
 from sqlalchemy import or_
 
 from app.db.database import SessionLocal
-from app.models.user import User
-from app.schemas.user import (
+from app.models.employee_model import User
+from app.schemas.employee_schema import (
     UserCreate, UserResponse, UserUpdate,
     UserLogin, ChangePassword
 )
 from app.core.security import hash_password, verify_password, create_access_token
 from app.core.deps import get_current_user
 
-from app.models.login_session import LoginSession
+from app.models.employee_model import LoginSession
 
 router = APIRouter()
 
@@ -89,16 +89,6 @@ def login(user: UserLogin, request: Request, db: Session = Depends(get_db)):
         "token_type": "bearer",
         "role": db_user.role
     }
-
-@router.get("/users", response_model=list[UserResponse])
-def get_users(
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
-):
-    if current_user.role != "admin":
-        raise HTTPException(403, "Not authorized")
-
-    return db.query(User).order_by(User.id.desc()).all()
 
 
 @router.get("/users", response_model=list[UserResponse])

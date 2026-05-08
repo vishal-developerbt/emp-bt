@@ -3,8 +3,8 @@ from sqlalchemy.orm import Session
 from datetime import timedelta
 from app.core.utils import calculate_next_increment
 from app.db.database import SessionLocal
-from app.models.emp_increment import EmpIncrement
-from app.schemas.emp_increment import (
+from app.models.employee_model import EmpIncrement
+from app.schemas.employee_schema import (
     IncrementCreate,
     IncrementUpdate,
     IncrementResponse

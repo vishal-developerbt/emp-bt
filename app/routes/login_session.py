@@ -3,32 +3,12 @@ from sqlalchemy.orm import Session
 from datetime import datetime
 
 from app.db.database import SessionLocal
-from app.models.login_session import LoginSession
-from app.schemas.login_session import SessionCreate, SessionResponse
+from app.models.employee_model import LoginSession
+from app.schemas.employee_schema import SessionCreate, SessionResponse
 from app.core.deps import get_current_user
-from app.models.user import User
+from app.models.employee_model import User
 
-router = APIRouter(prefix="/login-session", tags=["Login Session"])
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
-from datetime import datetime
-
-from app.db.database import SessionLocal
-from app.models.login_session import LoginSession
-from app.schemas.login_session import SessionCreate, SessionResponse
-from app.core.deps import get_current_user
-from app.models.user import User
-
-router = APIRouter(prefix="/login-session", tags=["Login Session"])
+router = APIRouter()
 
 
 def get_db():
