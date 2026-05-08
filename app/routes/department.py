@@ -44,30 +44,6 @@ def create_department(
 
     return dept
 
-@router.post("/", response_model=DepartmentResponse)
-def create_department(
-    data: DepartmentCreate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
-):
-    if current_user.role != "admin":
-        raise HTTPException(403, "Not authorized")
-
-    existing = db.query(Department).filter(
-        Department.department_name == data.department_name
-    ).first()
-
-    if existing:
-        raise HTTPException(400, "Department already exists")
-
-    dept = Department(**data.dict())
-
-    db.add(dept)
-    db.commit()
-    db.refresh(dept)
-
-    return dept
-
 
 @router.get("/", response_model=list[DepartmentResponse])
 def get_departments(db: Session = Depends(get_db)):

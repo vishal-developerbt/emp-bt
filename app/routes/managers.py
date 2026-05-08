@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.database import SessionLocal
-from app.models.employee_model import Manager
+from app.models.project_model import Manager
 from app.schemas.project_schema import (
     ManagerCreate,
     ManagerUpdate,

@@ -1,17 +1,8 @@
-from sqlalchemy import (
-    Column, BigInteger, Text, String, Date, Boolean, SmallInteger,
-    TIMESTAMP, Integer, Float, DateTime, UniqueConstraint, ForeignKey, JSON
-)
+from sqlalchemy import Column, BigInteger,Text, String, Date, Boolean, SmallInteger, TIMESTAMP, Integer, Float, DateTime, UniqueConstraint, ForeignKey, JSON
 from sqlalchemy.sql import func
-from sqlalchemy.orm import relationship
 from app.db.database import Base
 from datetime import datetime
-import uuid
 
-
-# =========================
-# PROJECT
-# =========================
 class Project(Base):
     __tablename__ = "projects"
 
@@ -23,140 +14,88 @@ class Project(Base):
     project_startdate = Column(Date, nullable=False)
     project_enddate = Column(Date, nullable=True)
 
-    status = Column(Boolean, default=True)
-    is_billable = Column(SmallInteger, default=1)
+    status = Column(Boolean, default=True)   # enum(0,1) → Boolean
+
+    is_billable = Column(SmallInteger, default=1)  # 1 = billable, 0 = non-billable
 
     created_at = Column(TIMESTAMP, server_default=func.now())
-    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    updated_at = Column(TIMESTAMP, onupdate=func.now())
 
 
-# =========================
-# MANAGER
-# =========================
-class Manager(Base):
-    __tablename__ = "managers"
-
-    id = Column(BigInteger, primary_key=True, index=True, autoincrement=True)
-    manager_name = Column(String(255), nullable=False)
-    skill_type = Column(String(255), nullable=True)
-
-    status = Column(Boolean, default=True)
-
-    created_at = Column(TIMESTAMP, server_default=func.now())
-    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
-
-
-# =========================
-# TEAM LEAD
-# =========================
-class TeamLead(Base):
-    __tablename__ = "team_lead"
-
-    id = Column(BigInteger, primary_key=True, index=True, autoincrement=True)
-
-    manager_id = Column(BigInteger, nullable=True)
-    teamlead_id = Column(BigInteger, nullable=True)
-    user_id = Column(BigInteger, nullable=True)
-
-    status = Column(Boolean, default=False)  # 0/1 converted to bool
-
-    created_at = Column(TIMESTAMP, server_default=func.now())
-    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
-
-
-# =========================
-# PROJECT MANAGER
-# =========================
 class ProjectManager(Base):
     __tablename__ = "project_managers"
 
     id = Column(BigInteger, primary_key=True, index=True, autoincrement=True)
 
-    project_id = Column(BigInteger, ForeignKey("projects.id"), nullable=False)
-    manager_id = Column(BigInteger, nullable=False)
-    developer_id = Column(BigInteger, nullable=False)
-    technology_id = Column(BigInteger, nullable=False)
+    project_id = Column(Integer, nullable=False)
+    manager_id = Column(Integer, nullable=False)
+    developer_id = Column(Integer, nullable=False)
+    technology_id = Column(Integer, nullable=False)
 
-    status = Column(Boolean, default=True)
-    resource_type = Column(Boolean, default=False)
+    status = Column(Boolean, default=True)       # ✅ replaced ENUM
+    resource_type = Column(Boolean, default=False)  # 0/1 → False/True
 
     created_at = Column(TIMESTAMP, server_default=func.now())
-    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    updated_at = Column(TIMESTAMP, onupdate=func.now())
 
-
-# =========================
-# PROJECT EARNING
-# =========================
 class ProjectMonthlyEarning(Base):
     __tablename__ = "project_monthly_earning"
 
-    id = Column(BigInteger, primary_key=True, index=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
 
     project_id = Column(BigInteger, ForeignKey("projects.id"), nullable=False)
-    month = Column(Date, nullable=False)
+
+    month = Column(Date, nullable=False)  # store as YYYY-MM-01
+
     earning = Column(Float, nullable=False)
 
-    created_at = Column(TIMESTAMP, server_default=func.now())
-    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, onupdate=func.now())
 
     __table_args__ = (
         UniqueConstraint('project_id', 'month', name='unique_project_month'),
     )
 
-
-# =========================
-# TECHNOLOGY
-# =========================
 class Technology(Base):
     __tablename__ = "technology"
 
-    id = Column(BigInteger, primary_key=True, index=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     technology = Column(String(100), nullable=True)
-    status = Column(Boolean, default=True)
+    status = Column(Boolean, default=True)  # 1 = active, 0 = inactive
 
-    created_at = Column(TIMESTAMP, server_default=func.now())
-    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, onupdate=func.now())
 
-
-# =========================
-# SKILL
-# =========================
 class Skill(Base):
     __tablename__ = "skills"
 
     id = Column(BigInteger, primary_key=True, index=True, autoincrement=True)
     skill_name = Column(String(255), nullable=False)
-    user_id = Column(BigInteger, nullable=False)
+    user_id = Column(Integer, nullable=False)
 
     created_at = Column(TIMESTAMP, server_default=func.now())
-    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    updated_at = Column(TIMESTAMP, onupdate=func.now())
 
-
-# =========================
-# SKILL DEPARTMENT
-# =========================
 class SkillDepartment(Base):
     __tablename__ = "skill_department"
 
     id = Column(BigInteger, primary_key=True, index=True, autoincrement=True)
     skill_name = Column(String(255), nullable=False)
 
+    # since DB uses enum('0','1')
     status = Column(Boolean, default=True)
 
     created_at = Column(TIMESTAMP, server_default=func.now())
-    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    updated_at = Column(TIMESTAMP, onupdate=func.now())
 
 
-# =========================
-# CLIENT MASTER
-# =========================
 class ClientMaster(Base):
     __tablename__ = "client_master_list"
 
     id = Column(BigInteger, primary_key=True, index=True, autoincrement=True)
 
     technology = Column(String(255), nullable=True)
-    interview_date = Column(String(255), nullable=True)
+    interview_date = Column(String(255), nullable=True)  # ⚠️ keep as string (DB limitation)
 
     company = Column(String(255), nullable=True)
     name = Column(String(255), nullable=True)
@@ -179,12 +118,9 @@ class ClientMaster(Base):
     interview_type = Column(String(255), nullable=True)
 
     created_at = Column(TIMESTAMP, server_default=func.now())
-    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    updated_at = Column(TIMESTAMP, onupdate=func.now())
 
 
-# =========================
-# PROCESS
-# =========================
 class Process(Base):
     __tablename__ = "process"
 
@@ -217,9 +153,6 @@ class Process(Base):
     tags = Column(String(255), default="NOT TAGGED")
 
 
-# =========================
-# SUB PROCESS
-# =========================
 class SubProcess(Base):
     __tablename__ = "sub_process"
 
@@ -251,28 +184,23 @@ class SubProcess(Base):
 
     profile = Column(String(255), nullable=True)
 
-
-# =========================
-# DEPARTMENT
-# =========================
 class Department(Base):
     __tablename__ = "department"
 
     id = Column(BigInteger, primary_key=True, index=True, autoincrement=True)
+
     department_name = Column(String(255), nullable=False)
+
     status = Column(Boolean, default=True)
 
     created_at = Column(TIMESTAMP, server_default=func.now())
-    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    updated_at = Column(TIMESTAMP, onupdate=func.now())
 
     __table_args__ = (
         UniqueConstraint('department_name', name='unique_department_name'),
     )
 
 
-# =========================
-# DOCUMENT
-# =========================
 class Document(Base):
     __tablename__ = "document"
 
@@ -281,7 +209,7 @@ class Document(Base):
     classification = Column(String(255), nullable=True)
     description = Column(String(255), nullable=True)
 
-    document = Column(String(255), nullable=True)
+    document = Column(String(255), nullable=True)  # file path
 
     name = Column(String(255), nullable=True)
 
@@ -292,4 +220,4 @@ class Document(Base):
     tags = Column(String(255), nullable=True)
 
     created_at = Column(TIMESTAMP, server_default=func.now())
-    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now())
+    updated_at = Column(TIMESTAMP, onupdate=func.now())

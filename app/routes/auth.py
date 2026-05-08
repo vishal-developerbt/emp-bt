@@ -90,16 +90,6 @@ def login(user: UserLogin, request: Request, db: Session = Depends(get_db)):
         "role": db_user.role
     }
 
-@router.get("/users", response_model=list[UserResponse])
-def get_users(
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
-):
-    if current_user.role != "admin":
-        raise HTTPException(403, "Not authorized")
-
-    return db.query(User).order_by(User.id.desc()).all()
-
 
 @router.get("/users", response_model=list[UserResponse])
 def get_users(

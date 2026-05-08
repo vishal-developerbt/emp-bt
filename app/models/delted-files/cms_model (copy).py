@@ -1,10 +1,5 @@
-from sqlalchemy import (
-    Column, BigInteger, String, Text,
-    Boolean, TIMESTAMP, UniqueConstraint,
-    ForeignKey, text
-)
+from sqlalchemy import Column, BigInteger, String, Text, Boolean, TIMESTAMP, UniqueConstraint, ForeignKey
 from sqlalchemy.sql import func
-from sqlalchemy.orm import relationship
 from app.db.database import Base
 
 
@@ -15,15 +10,16 @@ class CMS(Base):
 
     title = Column(String(255), nullable=False)
     content = Column(Text, nullable=True)
-    status = Column(Boolean, nullable=False, default=True)
+
+    status = Column(Boolean, default=True)
+
     created_at = Column(TIMESTAMP, server_default=func.now())
     updated_at = Column(TIMESTAMP, onupdate=func.now())
-
-    images = relationship("CMSImage", backref="cms", cascade="all, delete")
 
     __table_args__ = (
         UniqueConstraint('title', name='unique_cms_title'),
     )
+
 
 
 class CMSImage(Base):
@@ -35,7 +31,8 @@ class CMSImage(Base):
 
     file_name = Column(String(255), nullable=False)
 
-    status = Column(Boolean, nullable=False, default=True)
+    status = Column(Boolean, default=True)
+
     created_at = Column(TIMESTAMP, server_default=func.now())
     updated_at = Column(TIMESTAMP, onupdate=func.now())
 
@@ -46,12 +43,10 @@ class EmailTemplate(Base):
     id = Column(BigInteger, primary_key=True, index=True, autoincrement=True)
 
     subject = Column(String(255), nullable=False)
-
-    type = Column(String(255), nullable=False)
-
+    type = Column(String(255), nullable=False)  # unique key
     content = Column(Text, nullable=False)
 
-    status = Column(Boolean, nullable=False, default=True)
+    status = Column(Boolean, default=True)
 
     created_at = Column(TIMESTAMP, server_default=func.now())
     updated_at = Column(TIMESTAMP, onupdate=func.now())
@@ -59,7 +54,6 @@ class EmailTemplate(Base):
     __table_args__ = (
         UniqueConstraint('type', name='unique_email_type'),
     )
-
 
 class CityState(Base):
     __tablename__ = "city_states"
