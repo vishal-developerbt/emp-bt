@@ -5,21 +5,21 @@ import random
 import re
 
 
-def generate_username(db):
+def generate_employee_code(db):
     year = datetime.now().year
 
     last_user = db.query(User)\
-        .filter(User.username.like(f"AV{year}%"))\
+        .filter(User.employee_code.like(f"BT{year}%"))\
         .order_by(User.id.desc())\
         .first()
 
     if last_user:
-        last_number = int(last_user.username[-3:])
+        last_number = int(last_user.employee_code[-3:])
         new_number = last_number + 1
     else:
-        new_number = 1
+        new_number = 0
 
-    return f"AV{year}{str(new_number).zfill(3)}"
+    return f"BT{year}{str(new_number).zfill(3)}"
 
 
 def generate_otp():

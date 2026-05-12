@@ -28,7 +28,7 @@ def create_project(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
-    if current_user.role != "admin":
+    if current_user.role != "1":
         raise HTTPException(403, "Not authorized")
 
     # Validation

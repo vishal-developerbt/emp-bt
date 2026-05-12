@@ -398,7 +398,7 @@ class EmpShiftResponse(BaseSchema):
 
 class UserCreate(BaseSchema):
     name: str
-    employee_code: str
+    employee_code: Optional[str] = None
     email: EmailStr
     password: str = Field(min_length=6)
     role: str = "employee"
@@ -415,9 +415,8 @@ class UserUpdate(BaseSchema):
     is_paid: Optional[bool] = None
     timesheet_skip: Optional[bool] = None
 
-
 class UserLogin(BaseSchema):
-    email: EmailStr
+    employee_code: str
     password: str
 
 

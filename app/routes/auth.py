@@ -10,7 +10,7 @@ from app.schemas.employee_schema import (
 )
 from app.core.security import hash_password, verify_password, create_access_token
 from app.core.deps import get_current_user
-
+from app.core.utils import generate_employee_code
 from app.models.employee_model import LoginSession
 
 router = APIRouter()
@@ -32,10 +32,12 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
     # Check employee_code
     if db.query(User).filter(User.employee_code == user.employee_code).first():
         raise HTTPException(400, "Employee code already exists")
-
+    
+    employee_code = generate_employee_code(db)
+    #print(user)
     new_user = User(
         name=user.name,
-        employee_code=user.employee_code,
+        employee_code= employee_code,
         email=user.email,
         password=hash_password(user.password),
         role=user.role,
@@ -55,15 +57,14 @@ def login(user: UserLogin, request: Request, db: Session = Depends(get_db)):
     ip = request.client.host
     user_agent = request.headers.get("user-agent")
 
-    db_user = db.query(User).filter(User.email == user.email).first()
+    db_user = db.query(User).filter(
+        User.employee_code == user.employee_code
+    ).first()
 
     if not db_user or not verify_password(user.password, db_user.password):
 
         db.add(LoginSession(
             user_id=db_user.id if db_user else None,
-            email=user.email,
-            ip_address=ip,
-            user_agent=user_agent,
             status="Failed"
         ))
         db.commit()
@@ -77,19 +78,14 @@ def login(user: UserLogin, request: Request, db: Session = Depends(get_db)):
 
     db.add(LoginSession(
         user_id=db_user.id,
-        email=db_user.email,
-        ip_address=ip,
-        user_agent=user_agent,
         status="Success"
     ))
     db.commit()
 
     return {
         "access_token": token,
-        "token_type": "bearer",
-        "role": db_user.role
+        "token_type": "bearer"
     }
-
 
 @router.get("/users", response_model=list[UserResponse])
 def get_users(

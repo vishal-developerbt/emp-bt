@@ -50,7 +50,7 @@ class User(Base):
 
     id = Column(BigInteger, primary_key=True, index=True, autoincrement=True)
     name = Column(String(255), nullable=False)
-    employee_code = Column(String(255), unique=True, nullable=False)
+    employee_code = Column(String(255), unique=True, nullable=True)   
     role = Column(BigInteger, ForeignKey("role.id"), default=5)
     email = Column(String(255), unique=True, nullable=False, index=True)
     email_verified_at = Column(TIMESTAMP, nullable=True)
@@ -101,7 +101,7 @@ class EmpAccountDetails(Base):
     id = Column(BigInteger, primary_key=True, index=True, autoincrement=True)
     user_id = Column(BigInteger, ForeignKey("users.id"), nullable=False, unique=True)
     bank_name = Column(String(255), nullable=True)
-    acc_no = Column(String(50), nullable=True)
+    acc_no = Column(String(50), nullable=False)
     ifsc = Column(String(20), nullable=True)
     salary = Column(Numeric(10, 2), default=0)
     extra_salary = Column(Integer, default=0)
